@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/custom/themeProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import "./globals.css";
 import Header from "@/components/custom/header";
+import { dark } from "@clerk/themes";
 
 const interFont = Inter({ subsets: ["latin"] });
 
@@ -18,18 +20,24 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body
-                className={`${interFont.className} antialiased flex flex-col min-h-screen`}
-            >
-                <ThemeProvider attribute="class" defaultTheme="dark">
-                    <Header />
-                    <main className="flex-1">{children}</main>
-                    <footer className="py-5 px-3 text-center text-sm border-t">
-                        Made with ❣️ by Arun Kumar
-                    </footer>
-                </ThemeProvider>
-            </body>
-        </html>
+        <ClerkProvider
+            appearance={{
+                baseTheme: dark,
+            }}
+        >
+            <html lang="en" suppressHydrationWarning>
+                <body
+                    className={`${interFont.className} antialiased flex flex-col min-h-screen`}
+                >
+                    <ThemeProvider attribute="class" defaultTheme="dark">
+                        <Header />
+                        <main className="flex-1">{children}</main>
+                        <footer className="py-5 px-3 text-center text-sm border-t">
+                            Made with ❣️ by Arun Kumar
+                        </footer>
+                    </ThemeProvider>
+                </body>
+            </html>
+        </ClerkProvider>
     );
 }
