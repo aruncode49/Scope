@@ -23,6 +23,9 @@ export default function RootLayout({
         <ClerkProvider
             appearance={{
                 baseTheme: dark,
+                variables: {
+                    colorBackground: "#18181b",
+                },
             }}
         >
             <html lang="en" suppressHydrationWarning>
