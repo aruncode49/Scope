@@ -34,7 +34,9 @@ export default function RootLayout({
                 >
                     <ThemeProvider attribute="class" defaultTheme="dark">
                         <Header />
-                        <main className="flex-1">{children}</main>
+                        <main className="flex-1 mt-16 px-5 md:px-0">
+                            {children}
+                        </main>
                         <footer className="py-5 px-3 text-center text-sm border-t">
                             Made with ❣️ by Arun Kumar
                         </footer>
