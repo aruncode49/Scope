@@ -7,7 +7,7 @@ import UserMenu from "./userMenu";
 
 const Header = () => {
     return (
-        <header className="fixed h-16 border-b z-10 w-full bg-black/5 backdrop-blur-md shadow-lg flex items-center">
+        <header className="fixed h-16 border-b z-10 w-full bg-black/50 backdrop-blur-md shadow-lg flex items-center">
             <nav className="container mx-auto px-5 md:px-0 flex justify-between items-center">
                 <Link href="/">
                     <Image
@@ -21,8 +21,8 @@ const Header = () => {
                 <div className="flex items-center gap-3">
                     <Link href="/project/create/">
                         <Button
-                            variant="outline"
-                            className="text-xs px-2 sm:h-9 sm:px-4 sm:py-2 sm:text-base"
+                            variant="ghost"
+                            className="text-xs px-2 sm:h-9 sm:px-4 sm:py-2 sm:text-base rounded-3xl"
                         >
                             <PenBox />
                             <span>Create Project</span>
@@ -30,7 +30,10 @@ const Header = () => {
                     </Link>
                     <SignedOut>
                         <SignInButton forceRedirectUrl="/onboarding/">
-                            <Button className="text-xs px-2 h-8 sm:h-9 sm:px-4 sm:py-2 sm:text-base">
+                            <Button
+                                variant="landing"
+                                className="text-xs px-2 h-8 sm:h-9 sm:px-4 sm:py-2 sm:text-base"
+                            >
                                 <span>Sign In</span>
                             </Button>
                         </SignInButton>
