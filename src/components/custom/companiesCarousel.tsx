@@ -8,9 +8,9 @@ import Image from "next/image";
 
 const CompaniesCarousel = () => {
     return (
-        <section id="features" className="py-20 my-10 dotted-background">
+        <section className="py-20 dotted-background">
             <div className="container mx-auto">
-                <h3 className="text-3xl font-bold mb-12 text-center">
+                <h3 className="text-neutral-300 text-2xl sm:text-3xl font-bold mb-12 text-center">
                     Trusted by Industry Leaders
                 </h3>
 
@@ -21,7 +21,7 @@ const CompaniesCarousel = () => {
                         }),
                     ]}
                 >
-                    <CarouselContent className="flex items-center gap-3 py-6">
+                    <CarouselContent className="flex items-center gap-3">
                         {companiesData.map(({ name, path, id }) => (
                             <CarouselItem
                                 key={id}

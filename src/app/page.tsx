@@ -8,6 +8,13 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import CompaniesCarousel from "@/components/custom/companiesCarousel";
+import faqs from "@/constants/faqs.json";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // key features
 const features = [
@@ -37,15 +44,17 @@ export default function Home() {
             <Hero />
             <Features />
             <CompaniesCarousel />
+            <Faqs />
+            <CTA />
         </>
     );
 }
 
 const Hero = () => {
     return (
-        <section className="dotted-background sm:min-h-screen flex items-center justify-center">
-            <div className="container mx-auto flex flex-col gap-7 justify-center items-center py-40 sm:py-20 text-center">
-                <h1 className="text-center text-6xl sm:text-7xl lg:text-8xl font-bold md:font-extrabold gradient-title">
+        <section className="dotted-background flex items-center justify-center py-20">
+            <div className="container mx-auto flex flex-col gap-7 justify-center items-center text-center">
+                <h1 className="gradient-title text-center text-6xl sm:text-7xl lg:text-8xl font-bold md:font-extrabold gradient-title">
                     Streamline Your Workflow <br />
                     <span className="flex justify-center">with Scope</span>
                 </h1>
@@ -73,9 +82,9 @@ const Hero = () => {
 
 const Features = () => {
     return (
-        <section id="features" className="py-10">
+        <section id="features" className="py-20">
             <div className="container mx-auto">
-                <h3 className="text-3xl font-bold mb-12 text-center">
+                <h3 className="text-neutral-300 text-2xl sm:text-3xl font-bold mb-12 text-center">
                     Key Features
                 </h3>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -93,6 +102,52 @@ const Features = () => {
                         </Card>
                     ))}
                 </div>
+            </div>
+        </section>
+    );
+};
+
+const Faqs = () => {
+    return (
+        <section className="py-20">
+            <div className="container mx-auto">
+                <h3 className="text-neutral-300 text-2xl sm:text-3xl font-bold mb-12 text-center">
+                    Frequently Asked Questions
+                </h3>
+                <Accordion type="single" collapsible>
+                    {faqs.map((data, index) => (
+                        <AccordionItem key={index} value={`item-${index}`}>
+                            <AccordionTrigger className="text-lg font-semibold text-neutral-200">
+                                {data.question}
+                            </AccordionTrigger>
+                            <AccordionContent className="text-neutral-400">
+                                {data.answer}
+                            </AccordionContent>
+                        </AccordionItem>
+                    ))}
+                </Accordion>
+            </div>
+        </section>
+    );
+};
+
+const CTA = () => {
+    return (
+        <section className="mb-10">
+            <div className="container bg-neutral-900 py-20 rounded-xl mx-auto flex flex-col items-center gap-8 px-5 text-center">
+                <h3 className="text-neutral-300 text-2xl sm:text-3xl font-bold">
+                    Ready to Transform Your Workflow?
+                </h3>
+                <p className="text-neutral-300">
+                    Join thousands of teams already using Scope to streamline
+                    their projects and boost productivity.
+                </p>
+                <Link href="/onboarding/">
+                    <Button variant="landing">
+                        <span>Start for Free</span>
+                        <SquareArrowOutUpRight />
+                    </Button>
+                </Link>
             </div>
         </section>
     );

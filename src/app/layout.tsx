@@ -37,8 +37,9 @@ export default function RootLayout({
                         <main className="flex-1 mt-16 px-5 md:px-0">
                             {children}
                         </main>
-                        <footer className="py-5 px-3 text-center text-sm border-t">
-                            Made with ❣️ by Arun Kumar
+                        <footer className="py-6 px-3 text-center text-xs border-t text-neutral-300">
+                            © Copyright {new Date().getFullYear()} - Developed
+                            by Arun Kumar. All right reserved.
                         </footer>
                     </ThemeProvider>
                 </body>
