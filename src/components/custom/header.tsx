@@ -4,8 +4,10 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { PenBox } from "lucide-react";
 import UserMenu from "./userMenu";
+import { checkUser } from "@/lib/checkUser";
 
-const Header = () => {
+const Header = async () => {
+    await checkUser();
     return (
         <header className="fixed h-16 border-b z-10 w-full bg-black/50 backdrop-blur-md shadow-lg flex items-center">
             <nav className="container mx-auto px-5 md:px-0 flex justify-between items-center">
