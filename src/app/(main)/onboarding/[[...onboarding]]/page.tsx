@@ -19,7 +19,11 @@ const OnboardingPage = () => {
 
     return (
         <div className="dotted-background flex items-center justify-center py-10">
-            <OrganizationList hidePersonal />
+            <OrganizationList
+                hidePersonal
+                afterCreateOrganizationUrl="/organization/:slug/"
+                afterSelectOrganizationUrl="/organization/:slug/"
+            />
         </div>
     );
 };

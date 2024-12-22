@@ -1,10 +1,16 @@
-import React from "react";
+import { getOrganization } from "@/actions/organization";
 
 type TParams = { orgId: string };
 
-const OrganizationPage = ({ params }: { params: TParams }) => {
+const OrganizationPage = async ({ params }: { params: TParams }) => {
     const { orgId } = params;
-    return <div>{orgId}</div>;
+    const organization = await getOrganization(orgId);
+
+    if (!organization) {
+        return <div>Organization Not Found!</div>;
+    }
+
+    return <div>{organization.name}'s Projects</div>;
 };
 
 export default OrganizationPage;
