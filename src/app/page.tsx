@@ -7,6 +7,7 @@ import {
     SquareArrowOutUpRight,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import CompaniesCarousel from "@/components/custom/companiesCarousel";
 
 // key features
 const features = [
@@ -35,6 +36,7 @@ export default function Home() {
         <>
             <Hero />
             <Features />
+            <CompaniesCarousel />
         </>
     );
 }
