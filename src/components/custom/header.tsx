@@ -32,7 +32,7 @@ const Header = () => {
                         <SignInButton forceRedirectUrl="/onboarding/">
                             <Button
                                 variant="landing"
-                                className="text-xs px-2 h-8 sm:h-9 sm:px-4 sm:py-2 sm:text-base"
+                                className="text-xs sm:text-base"
                             >
                                 <span>Sign In</span>
                             </Button>
