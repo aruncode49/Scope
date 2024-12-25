@@ -34,7 +34,7 @@ export default function RootLayout({
                 >
                     <ThemeProvider attribute="class" defaultTheme="dark">
                         <Header />
-                        <main className="flex-1 mt-16 px-5 md:px-0">
+                        <main className="flex-1 mt-16 px-3 md:px-0">
                             {children}
                         </main>
                         <footer className="py-6 px-3 text-center text-xs border-t text-neutral-300">
