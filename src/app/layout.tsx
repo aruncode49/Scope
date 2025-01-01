@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 import Header from "@/components/custom/header";
@@ -23,6 +24,7 @@ export default function RootLayout({
                 <body
                     className={`${interFont.className} antialiased flex flex-col min-h-screen`}
                 >
+                    <Toaster richColors />
                     <Header />
                     <main className="flex-1 mt-16 px-3 md:px-0">
                         {children}

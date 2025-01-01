@@ -13,14 +13,14 @@ const Header = async () => {
             <UserLoading />
             <header className="fixed h-16 bg-[#f6f5f2]/60 border-b border-gray-300 z-10 w-full backdrop-blur-2xl flex items-center">
                 <nav className="container mx-auto px-2 md:px-0 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-2">
+                    <Link href="/" className="flex items-center gap-x-1">
                         <Image
                             src="/logo.png"
-                            width={30}
+                            width={25}
                             height={50}
                             alt="logo"
                         />
-                        <h1 className="font-bold text-gray-900 text-2xl">
+                        <h1 className="font-bold text-gray-900 text-[1.3rem] tracking-tight">
                             SCOPE
                         </h1>
                     </Link>

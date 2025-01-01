@@ -6,7 +6,7 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 interface IProjectData {
     key: string;
     name: string;
-    description: string;
+    description?: string;
 }
 
 export const createProject = async (data: IProjectData) => {

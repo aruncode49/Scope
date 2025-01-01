@@ -9,11 +9,23 @@ import { projectSchema, TProjectFormData } from "@/lib/zodSchema";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useFetch } from "@/hooks/useFetch";
+import { createProject } from "@/actions/projects";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const CreateProject = () => {
     // hooks
     const { isLoaded: isOrgLoaded, membership } = useOrganization();
     const { isLoaded: isUserLoaded } = useUser();
+    const {
+        data: resData,
+        loading,
+        makeRequest,
+    } = useFetch({
+        cb: createProject,
+    });
+    const router = useRouter();
 
     // state
     const [isAdmin, setAdmin] = useState<boolean>(false);
@@ -27,8 +39,8 @@ const CreateProject = () => {
     });
 
     // actions
-    const onSubmit = async () => {
-        console.log("Form Submit");
+    const onSubmit = async (data: TProjectFormData) => {
+        await makeRequest(data);
     };
 
     // effect
@@ -37,6 +49,13 @@ const CreateProject = () => {
             setAdmin(membership.role === "org:admin");
         }
     }, [isUserLoaded, isOrgLoaded, membership]);
+
+    useEffect(() => {
+        if (resData) {
+            toast.success("Project created successfully!");
+            router.push(`/project/${resData.id}`);
+        }
+    }, [loading]);
 
     // early return
     if (!isOrgLoaded || !isUserLoaded) {
@@ -71,7 +90,7 @@ const CreateProject = () => {
                         {...register("name")}
                     />
                     {errors.name && (
-                        <p className="text-xs mt-1 ml-1 text-red-400">
+                        <p className="text-xs mt-1 ml-1 text-red-600">
                             {errors.name.message}
                         </p>
                     )}
@@ -79,11 +98,11 @@ const CreateProject = () => {
                 <div>
                     <Input
                         id="key"
-                        placeholder="Project key (eg: AKPY)"
+                        placeholder="Project key (eg: SCPY)"
                         {...register("key")}
                     />
                     {errors.key && (
-                        <p className="text-xs mt-1 ml-1 text-red-400">
+                        <p className="text-xs mt-1 ml-1 text-red-600">
                             {errors.key.message}
                         </p>
                     )}
@@ -93,20 +112,21 @@ const CreateProject = () => {
                         id="description"
                         placeholder="Project description (optional)"
                         className="h-32"
-                        {...register("key")}
+                        {...register("description")}
                     />
                     {errors.description && (
-                        <p className="text-xs mt-1 ml-1 text-red-400">
+                        <p className="text-xs mt-1 ml-1 text-red-600">
                             {errors.description.message}
                         </p>
                     )}
                 </div>
                 <Button
+                    disabled={loading}
                     type="submit"
                     variant="amber"
                     className="text-white w-full"
                 >
-                    Create Project
+                    {loading ? "Creating..." : "Create Project"}
                 </Button>
             </form>
         </div>
