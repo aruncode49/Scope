@@ -46,7 +46,7 @@ const CreateProject = () => {
     if (!isAdmin) {
         return (
             <div className="flex flex-col gap-3 justify-center items-center mt-40">
-                <span className="text-center text-neutral-300 text-sm">
+                <span className="text-center text-neutral-700 text-sm">
                     Oops! Only Admins can create projects.
                 </span>
                 <OrgSwitcher />
@@ -56,7 +56,7 @@ const CreateProject = () => {
 
     return (
         <div className="mt-7">
-            <h1 className="text-center text-lg font-bold">
+            <h1 className="text-center text-xl font-semibold">
                 Create New Project
             </h1>
 
@@ -103,7 +103,8 @@ const CreateProject = () => {
                 </div>
                 <Button
                     type="submit"
-                    className="bg-amber-700 text-white w-full hover:bg-amber-700 hover:opacity-85"
+                    variant="amber"
+                    className="text-white w-full"
                 >
                     Create Project
                 </Button>

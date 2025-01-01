@@ -1,11 +1,8 @@
 "use client";
 
 import { OrganizationSwitcher, SignedIn } from "@clerk/nextjs";
-import { usePathname } from "next/navigation";
 
 const OrgSwitcher = () => {
-    const pathName = usePathname();
-
     return (
         <SignedIn>
             <OrganizationSwitcher
@@ -14,7 +11,7 @@ const OrgSwitcher = () => {
                 afterSelectOrganizationUrl="/organization/:slug/"
                 appearance={{
                     elements: {
-                        organizationSwitcherTrigger: "pl-0 py-2 bg-neutral-900",
+                        organizationSwitcherTrigger: "pl-0 py-2 bg-neutral-200",
                         organizationPreviewAvatarBox: "hidden",
                     },
                 }}
