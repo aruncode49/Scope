@@ -64,7 +64,7 @@ const CreateProject = () => {
 
     if (!isAdmin) {
         return (
-            <div className="flex flex-col gap-3 justify-center items-center mt-40">
+            <div className="flex flex-col gap-3 justify-center items-center py-20">
                 <span className="text-center text-neutral-700 text-sm">
                     Oops! Only Admins can create projects.
                 </span>

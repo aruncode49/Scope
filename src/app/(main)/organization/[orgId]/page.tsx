@@ -1,5 +1,6 @@
 import { getOrganization } from "@/actions/organization";
 import OrgSwitcher from "@/components/custom/orgSwitcher";
+import ProjectList from "@/app/(main)/project/_components/projectList";
 import Image from "next/image";
 
 type TParams = { orgId: string };
@@ -29,8 +30,7 @@ const OrganizationPage = async ({ params }: { params: TParams }) => {
             </div>
 
             {/* Org Projects */}
-            <h1>Org Projects</h1>
-
+            <ProjectList orgId={organization.id} />
             {/* Assigned and Reported issues */}
             <h1>Assigned Issues</h1>
         </div>

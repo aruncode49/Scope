@@ -13,7 +13,10 @@ const Header = async () => {
             <UserLoading />
             <header className="fixed h-16 bg-[#f6f5f2]/60 border-b border-gray-300 z-10 w-full backdrop-blur-2xl flex items-center">
                 <nav className="container mx-auto px-2 md:px-0 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-x-1">
+                    <Link
+                        href="/"
+                        className="flex items-center gap-x-1 outline-none"
+                    >
                         <Image
                             src="/logo.png"
                             width={25}
