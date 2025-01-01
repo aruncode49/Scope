@@ -17,7 +17,7 @@ const UserLoading = () => {
         }
     }, [isOrgLoaded, isUserLoaded]);
 
-    return <LoadingBar color="#d97706 " ref={ref} shadow={true} />;
+    return <LoadingBar color="#d97706" ref={ref} shadow={true} />;
 };
 
 export default UserLoading;
