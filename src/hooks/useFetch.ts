@@ -20,9 +20,11 @@ export const useFetch = <TArgs extends unknown[], TResponse>({
             const response = await cb(...args); // Spread the arguments into the callback
             setData(response);
             setError(null);
+            return true;
         } catch (err: any) {
             setError(err.message || "An error occurred");
             toast.error(err.message);
+            return false;
         } finally {
             setLoading(false);
         }

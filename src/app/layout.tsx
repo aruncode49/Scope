@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 import Header from "@/components/custom/header";
 
-const interFont = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -22,7 +25,7 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en" suppressHydrationWarning>
                 <body
-                    className={`${interFont.className} antialiased flex flex-col min-h-screen`}
+                    className={`${poppins.className} antialiased flex flex-col min-h-screen`}
                 >
                     <Toaster richColors />
                     <Header />

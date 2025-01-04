@@ -14,7 +14,7 @@ const OrganizationPage = async ({ params }: { params: TParams }) => {
     }
 
     return (
-        <div className="mt-3 space-y-3">
+        <div className="mt-5 space-y-3">
             <div className="flex items-center justify-between">
                 <h1 className="font-semibold text-xl flex items-center gap-2">
                     <Image

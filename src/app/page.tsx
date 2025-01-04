@@ -142,7 +142,7 @@ const CTA = () => {
     return (
         <section className="mb-10">
             <div className="container bg-gradient-to-tr from-amber-600 via-red-100 to-amber-200 py-20 rounded-xl mx-auto flex flex-col items-center gap-8 px-5 text-center">
-                <h3 className="text-neutral-900 text-2xl sm:text-3xl font-bold">
+                <h3 className="text-neutral-900 text-2xl sm:text-3xl font-semibold">
                     Ready to Transform Your Workflow?
                 </h3>
                 <p className="text-neutral-800">
