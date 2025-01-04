@@ -85,7 +85,7 @@ const SprintForm = ({
                         size="sm"
                     >
                         <PlusCircleIcon />
-                        Sprint
+                        Add Sprint
                     </Button>
                 )}
             </div>
@@ -137,8 +137,8 @@ const SprintForm = ({
                             <span className="text-xs p-2 bg-white rounded-lg shadow">
                                 {`${format(
                                     dateRange.from,
-                                    "LLL dd, yyyy"
-                                )} - ${format(dateRange.to, "LLL dd, yyyy")}`}
+                                    "d MMM, yyyy"
+                                )} - ${format(dateRange.to, "d MMM, yyyy")}`}
                             </span>
                             <Controller
                                 control={control}

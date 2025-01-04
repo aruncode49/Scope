@@ -2,6 +2,7 @@ import { getProject } from "@/actions/projects";
 import { notFound } from "next/navigation";
 import React from "react";
 import SprintForm from "../_components/sprintForm";
+import SprintBoard from "../_components/sprintBoard";
 
 type TParams = { projectId: string };
 
@@ -25,7 +26,15 @@ const ProjectPage = async ({ params }: { params: TParams }) => {
             />
 
             {/* sprint board */}
-            {project.sprints.length > 0 ? <></> : <div>Create Sprint</div>}
+            {project.sprints.length > 0 ? (
+                <SprintBoard
+                    sprints={project.sprints}
+                    projectId={projectId}
+                    orgId={project.organizationId}
+                />
+            ) : (
+                <div>Create Sprint</div>
+            )}
         </div>
     );
 };
