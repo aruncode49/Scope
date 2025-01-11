@@ -16,7 +16,6 @@ import {
 import { useFetch } from "@/hooks/useFetch";
 import { deleteProject } from "@/actions/projects";
 import { useEffect } from "react";
-// import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -58,7 +57,7 @@ const DeleteProject = ({ projectId }: IDeleteProject) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <span className="p-2 border border-neutral-400 rounded-md hover:bg-neutral-200 cursor-pointer">
+                <span className="p-2 border border-neutral-300 rounded-md hover:bg-neutral-200 cursor-pointer">
                     {loading ? (
                         <Loader2
                             size={18}

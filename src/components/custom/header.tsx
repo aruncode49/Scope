@@ -11,7 +11,7 @@ const Header = async () => {
     return (
         <>
             <UserLoading />
-            <header className="fixed h-16 bg-[#f6f5f2]/60 border-b border-gray-300 z-10 w-full backdrop-blur-2xl flex items-center">
+            <header className="fixed h-16 bg-[#f6f5f2]/20 border-b border-gray-300 z-10 w-full backdrop-blur-2xl flex items-center">
                 <nav className="container mx-auto px-2 md:px-0 flex justify-between items-center">
                     <Link
                         href="/"

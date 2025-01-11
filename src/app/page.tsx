@@ -89,10 +89,7 @@ const Features = () => {
                 </h3>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {features.map((feature, index) => (
-                        <Card
-                            key={index}
-                            className="bg-primary shadow-none border-gray-300"
-                        >
+                        <Card key={index} className="border-gray-200">
                             <CardContent className="pt-6">
                                 <feature.icon className="h-10 w-10 mb-4 text-neutral-800" />
                                 <h4 className="text-xl font-semibold mb-2">
