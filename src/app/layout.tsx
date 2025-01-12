@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
     return (
         <ClerkProvider>
-            <html lang="en" suppressHydrationWarning>
+            <html data-color-mode="light" lang="en" suppressHydrationWarning>
                 <body
                     className={`${poppins.className} antialiased flex flex-col min-h-screen`}
                 >

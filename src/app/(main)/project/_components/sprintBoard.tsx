@@ -166,7 +166,7 @@ const SprintBoard = ({ sprints, projectId, orgId }: ISprintBoard) => {
     }, [activeSprint]);
 
     return (
-        <div>
+        <div className="mb-16">
             {/* sprint manager */}
             <SprintManager
                 activeSprint={activeSprint}
@@ -176,110 +176,124 @@ const SprintBoard = ({ sprints, projectId, orgId }: ISprintBoard) => {
             />
 
             {/* kanban board */}
-            {issuesLoading ? (
-                <SuspenseLoader />
-            ) : (
-                <div className="relative">
-                    {updateIssuesLoading && (
-                        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 rounded-lg text-white">
-                            <Loader className="size-8 mr-2 animate-spin" />
-                            Updating Board..
-                        </div>
-                    )}
+            <>
+                {issuesLoading ? (
+                    <SuspenseLoader />
+                ) : (
+                    <div className="relative">
+                        {updateIssuesLoading && (
+                            <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 rounded-lg text-white">
+                                <Loader className="size-8 mr-2 animate-spin" />
+                                Updating Board..
+                            </div>
+                        )}
 
-                    <DragDropContext onDragEnd={onDragEnd}>
-                        <div className="grid grid-flow-col gap-x-6 auto-cols-[16rem] justify-between p-4 mt-4 rounded-lg bg-fuchsia-950 overflow-x-auto w-full">
-                            {statuses.map((col) => (
-                                <Droppable key={col.key} droppableId={col.key}>
-                                    {(provided) => (
-                                        <div ref={provided.innerRef}>
-                                            <h1 className="mb-4 text-white w-fit mx-auto px-6 py-1 rounded-full bg-fuchsia-900 border-b border-neutral-200">
-                                                {col.name}
-                                            </h1>
+                        <DragDropContext onDragEnd={onDragEnd}>
+                            <div className="grid grid-flow-col gap-x-6 auto-cols-[16rem] md:auto-cols-[19rem] justify-between p-4 mt-6 rounded-lg bg-fuchsia-950 overflow-x-auto w-full">
+                                {statuses.map((col) => (
+                                    <Droppable
+                                        key={col.key}
+                                        droppableId={col.key}
+                                    >
+                                        {(provided) => (
+                                            <div
+                                                className="p-3 rounded-lg bg-white/5 border border-fuchsia-900"
+                                                ref={provided.innerRef}
+                                            >
+                                                <h1 className="mb-4 text-white w-fit mx-auto px-6 py-1 rounded-full bg-fuchsia-900 border-b border-neutral-200">
+                                                    {col.name}
+                                                </h1>
 
-                                            {issues
-                                                ?.filter(
-                                                    (issue) =>
-                                                        issue.status === col.key
-                                                )
-                                                .map((issue, index) => (
-                                                    <Draggable
-                                                        draggableId={issue.id}
-                                                        index={index}
-                                                        key={issue.id}
-                                                        // isDragDisabled={}
-                                                    >
-                                                        {(provided) => (
-                                                            <div
-                                                                ref={
-                                                                    provided.innerRef
-                                                                }
-                                                                {...provided.dragHandleProps}
-                                                                {...provided.draggableProps}
-                                                            >
-                                                                <IssueCard
-                                                                    issue={
-                                                                        issue
+                                                {issues
+                                                    ?.filter(
+                                                        (issue) =>
+                                                            issue.status ===
+                                                            col.key
+                                                    )
+                                                    .map((issue, index) => (
+                                                        <Draggable
+                                                            draggableId={
+                                                                issue.id
+                                                            }
+                                                            index={index}
+                                                            key={issue.id}
+                                                            isDragDisabled={
+                                                                updateIssuesLoading
+                                                            }
+                                                        >
+                                                            {(provided) => (
+                                                                <div
+                                                                    ref={
+                                                                        provided.innerRef
                                                                     }
-                                                                    onDelete={() =>
-                                                                        fetchIssues(
-                                                                            activeSprint.id
-                                                                        )
-                                                                    }
-                                                                    onUpdate={(
-                                                                        updated
-                                                                    ) =>
-                                                                        setIssues(
-                                                                            (
-                                                                                issues
-                                                                            ) =>
-                                                                                issues?.map(
-                                                                                    (
-                                                                                        issue
-                                                                                    ) => {
-                                                                                        if (
-                                                                                            issue.id ===
-                                                                                            updated.id
-                                                                                        )
-                                                                                            return updated;
-                                                                                        return issue;
-                                                                                    }
-                                                                                )
-                                                                        )
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        )}
-                                                    </Draggable>
-                                                ))}
+                                                                    {...provided.dragHandleProps}
+                                                                    {...provided.draggableProps}
+                                                                >
+                                                                    <IssueCard
+                                                                        issue={
+                                                                            issue
+                                                                        }
+                                                                        onDelete={async () =>
+                                                                            await fetchIssues(
+                                                                                activeSprint.id
+                                                                            )
+                                                                        }
+                                                                        onUpdate={(
+                                                                            updated
+                                                                        ) =>
+                                                                            setIssues(
+                                                                                (
+                                                                                    issues
+                                                                                ) =>
+                                                                                    issues?.map(
+                                                                                        (
+                                                                                            issue
+                                                                                        ) => {
+                                                                                            if (
+                                                                                                issue?.id ===
+                                                                                                updated?.id
+                                                                                            )
+                                                                                                return updated;
+                                                                                            return issue;
+                                                                                        }
+                                                                                    )
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            )}
+                                                        </Draggable>
+                                                    ))}
 
-                                            {/* Issues */}
-                                            {provided.placeholder}
+                                                {/* Issues */}
+                                                {provided.placeholder}
 
-                                            {col.key === "TODO" &&
-                                                activeSprint.status !==
-                                                    "COMPLETED" && (
-                                                    <Button
-                                                        variant="ghost"
-                                                        className="w-full text-center text-white bg-white/15 hover:bg-white/90"
-                                                        onClick={() =>
-                                                            onClickCreateIssue(
-                                                                col.key as TIssueStatus
-                                                            )
-                                                        }
-                                                    >
-                                                        <PlusCircle />
-                                                        Create Issue
-                                                    </Button>
-                                                )}
-                                        </div>
-                                    )}
-                                </Droppable>
-                            ))}
-                        </div>
-                    </DragDropContext>
-                </div>
-            )}
+                                                {col.key === "TODO" &&
+                                                    activeSprint.status !==
+                                                        "COMPLETED" && (
+                                                        <Button
+                                                            variant="ghost"
+                                                            className="w-full text-center text-white bg-white/15 hover:bg-white/90"
+                                                            onClick={() =>
+                                                                onClickCreateIssue(
+                                                                    col.key as TIssueStatus
+                                                                )
+                                                            }
+                                                        >
+                                                            <PlusCircle />
+                                                            Create Issue
+                                                        </Button>
+                                                    )}
+                                            </div>
+                                        )}
+                                    </Droppable>
+                                ))}
+                            </div>
+                        </DragDropContext>
+                    </div>
+                )}
+            </>
+
             <CreateIssueDrawer
                 open={isDrawerOpen}
                 onClose={() => setIsDrawerOpen(false)}

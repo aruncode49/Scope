@@ -2,7 +2,7 @@ export type TSprintStatus = "PLANNED" | "ACTIVE" | "COMPLETED";
 
 export type TIssueStatus = "TODO" | "IN_PROGRESS" | "IN_REVIEW" | "DONE";
 
-export type IssuePriority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+export type TIssuePriority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
 
 export interface ISprint {
     projectId: string;
@@ -33,7 +33,7 @@ export interface IIssue {
     description?: string;
     status: TIssueStatus;
     order: number;
-    priority: IssuePriority;
+    priority: TIssuePriority;
     assignee?: IUser;
     assigneeId?: string;
     reporter?: IUser;

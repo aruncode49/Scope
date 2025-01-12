@@ -11,10 +11,11 @@ import { IIssue } from "@/lib/interfaces";
 import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import IssueDetailsDialog from "./issueDetailsDialog";
 
 interface IIssueCard {
     issue: IIssue;
-    onDelete: () => void;
+    onDelete: () => Promise<boolean>;
     onUpdate: (update: IIssue) => void;
 }
 
@@ -40,15 +41,13 @@ const IssueCard = ({ issue, onDelete, onUpdate }: IIssueCard) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     // actions
-    //   const onDeleteHandler = (...params) => {
-    //     router.refresh();
-    //     onDelete(...params);
-    //   };
+    const onDeleteHandler = async () => {
+        await onDelete();
+    };
 
-    //   const onUpdateHandler = (...params) => {
-    //     router.refresh();
-    //     onUpdate(...params);
-    //   };
+    const onUpdateHandler = (issue: IIssue) => {
+        onUpdate(issue);
+    };
 
     // vars
     const createdTime = formatDistanceToNow(new Date(issue.createdAt), {
@@ -85,16 +84,15 @@ const IssueCard = ({ issue, onDelete, onUpdate }: IIssueCard) => {
                 </CardFooter>
             </Card>
 
-            {/* {isDialogOpen && (
-      <IssueDetailsDialog
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        issue={issue}
-        onDelete={onDeleteHandler}
-        onUpdate={onUpdateHandler}
-        borderCol={priorityColor[issue.priority]}
-      />
-    )} */}
+            {isDialogOpen && (
+                <IssueDetailsDialog
+                    onClose={() => setIsDialogOpen(false)}
+                    issue={issue}
+                    onDelete={onDeleteHandler}
+                    onUpdate={onUpdateHandler}
+                    borderColor={priorityBorderColor[issue.priority]}
+                />
+            )}
         </div>
     );
 };

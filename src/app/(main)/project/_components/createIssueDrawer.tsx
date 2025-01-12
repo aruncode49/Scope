@@ -26,6 +26,7 @@ import { Controller, useForm } from "react-hook-form";
 import MDEditor from "@uiw/react-md-editor";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 interface ICreateIssueDrawer {
     open: boolean;
@@ -232,7 +233,11 @@ const CreateIssueDrawer = (props: ICreateIssueDrawer) => {
                         disabled={issueLoading}
                         className="w-full"
                     >
-                        {issueLoading ? "Creating..." : "Create Issue"}
+                        {issueLoading ? (
+                            <Loader2 className="animate-spin" />
+                        ) : (
+                            "Create Issue"
+                        )}
                     </Button>
                 </form>
             </DrawerContent>

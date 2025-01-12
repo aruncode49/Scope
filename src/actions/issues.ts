@@ -1,12 +1,17 @@
 "use server";
 
-import { IIssue, TIssueStatus } from "@/lib/interfaces";
+import { IIssue, TIssuePriority, TIssueStatus } from "@/lib/interfaces";
 import { db } from "@/lib/prisma";
 import { TIssueFormData } from "@/lib/zodSchema";
 import { auth } from "@clerk/nextjs/server";
 
 interface ICreateIssueData extends TIssueFormData {
     sprintId: string;
+    status: TIssueStatus;
+}
+
+interface IUpdateIssueData {
+    priority: TIssuePriority;
     status: TIssueStatus;
 }
 
@@ -79,17 +84,94 @@ export const updateIssueOrder = async (updatedIssueList: IIssue[]) => {
     // used transactions to handle multiple api call at a single time
     // Transactions: Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
     await db.$transaction(async (prisma) => {
-        // update each issue
-        for (const issue of updatedIssueList) {
-            await prisma.issue.update({
-                where: {
-                    id: issue.id,
-                },
-                data: {
-                    status: issue.status,
-                    order: issue.order,
-                },
-            });
-        }
+        await Promise.all(
+            updatedIssueList.map((issue) =>
+                prisma.issue.update({
+                    where: {
+                        id: issue.id,
+                    },
+                    data: {
+                        status: issue.status,
+                        order: issue.order,
+                    },
+                })
+            )
+        );
     });
 };
+
+export async function deleteIssue(issueId: string) {
+    const { userId, orgId } = await auth();
+
+    if (!userId || !orgId) {
+        throw new Error("Unauthorized");
+    }
+
+    const user = await db.user.findUnique({
+        where: { clerkUserId: userId },
+    });
+
+    if (!user) {
+        throw new Error("User not found");
+    }
+
+    const issue = await db.issue.findUnique({
+        where: { id: issueId },
+        include: { project: true },
+    });
+
+    if (!issue) {
+        throw new Error("Issue not found");
+    }
+
+    if (
+        issue.reporterId !== user.id &&
+        issue.project.organizationId !== orgId
+    ) {
+        throw new Error("You don't have permission to delete this issue");
+    }
+
+    await db.issue.delete({ where: { id: issueId } });
+}
+
+export async function updateIssue(issueId: string, data: IUpdateIssueData) {
+    const { userId, orgId } = await auth();
+
+    if (!userId || !orgId) {
+        throw new Error("Unauthorized");
+    }
+
+    try {
+        const issue = await db.issue.findUnique({
+            where: { id: issueId },
+            include: { project: true },
+        });
+
+        if (!issue) {
+            throw new Error("Issue not found");
+        }
+
+        if (issue.project.organizationId !== orgId) {
+            throw new Error("Unauthorized");
+        }
+
+        const updatedIssue = await db.issue.update({
+            where: { id: issueId },
+            data: {
+                status: data.status,
+                priority: data.priority,
+            },
+            include: {
+                assignee: true,
+                reporter: true,
+            },
+        });
+
+        return updatedIssue;
+    } catch (error) {
+        throw new Error(
+            "Error while updating issue: " +
+                (error instanceof Error && error.message)
+        );
+    }
+}
