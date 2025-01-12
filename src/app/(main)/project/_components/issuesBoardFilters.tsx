@@ -80,7 +80,7 @@ const IssuesBoardFilters = ({
 
     return (
         <div className="space-y-4">
-            <div className="flex flex-col pr-2 sm:flex-row gap-4 sm:gap-6 mt-4">
+            <div className="flex flex-col pr-2 sm:flex-row gap-4 sm:gap-6 mt-2">
                 <div className="flex gap-3 items-center sm:gap-6">
                     <div className="w-full flex items-center border bg-white rounded-md pl-2 shadow-sm">
                         <Search className="size-4 text-neutral-500" />

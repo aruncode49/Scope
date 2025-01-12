@@ -183,8 +183,7 @@ const SprintBoard = ({ sprints, projectId, orgId }: ISprintBoard) => {
             />
 
             <div className="mt-8">
-                <h1 className="text-2xl font-semibold text-neutral-900 flex items-center gap-2">
-                    <LayoutList />
+                <h1 className="text-lg sm:text-xl font-semibold text-neutral-700 flex items-center gap-2">
                     Manage Your Sprint
                 </h1>
 

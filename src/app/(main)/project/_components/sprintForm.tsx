@@ -75,7 +75,7 @@ const SprintForm = ({
         <>
             {/* Header Section */}
             <div className="flex items-center justify-between">
-                <h1 className="sm:text-xl font-medium text-gray-800">
+                <h1 className="text-xl font-semibold sm:text-2xl text-neutral-800">
                     {projectTitle}
                 </h1>
                 {!isFormVisible && (
