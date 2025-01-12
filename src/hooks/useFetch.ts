@@ -21,9 +21,14 @@ export const useFetch = <TArgs extends unknown[], TResponse>({
             setData(response);
             setError(null);
             return true;
-        } catch (err: any) {
-            setError(err.message || "An error occurred");
-            toast.error(err.message);
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message ?? "An error occurred");
+                toast.error(err.message);
+            } else {
+                setError(err as string);
+                toast.error("An error occurred");
+            }
             return false;
         } finally {
             setLoading(false);

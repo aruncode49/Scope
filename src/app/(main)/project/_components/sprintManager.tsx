@@ -54,7 +54,7 @@ const SprintManager = (props: ISprintManager) => {
     const onSprintChange = (id: string) => {
         const selectedSprint = sprints.find((sprint) => sprint.id === id);
         onUpdateActiveSprint(selectedSprint as ISprint);
-        setStatus(selectedSprint?.status!);
+        setStatus(selectedSprint?.status as TSprintStatus);
         router.replace(`/project/${projectId}`);
     };
 

@@ -25,7 +25,7 @@ export const createIssue = async (
         throw new Error("Unauthorized");
     }
 
-    let user = await db.user.findUnique({ where: { clerkUserId: userId } });
+    const user = await db.user.findUnique({ where: { clerkUserId: userId } });
 
     const lastIssue = await db.issue.findFirst({
         where: { projectId: projectId, status: data.status },

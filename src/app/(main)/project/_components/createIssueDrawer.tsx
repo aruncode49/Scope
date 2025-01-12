@@ -48,13 +48,10 @@ const CreateIssueDrawer = (props: ICreateIssueDrawer) => {
         cb: createIssue,
     });
 
-    const {
-        loading: orgMembersLoading,
-        data: orgMembers,
-        makeRequest: getAllOrganizationMembers,
-    } = useFetch({
-        cb: getOrganizationMembers,
-    });
+    const { data: orgMembers, makeRequest: getAllOrganizationMembers } =
+        useFetch({
+            cb: getOrganizationMembers,
+        });
 
     const {
         control,

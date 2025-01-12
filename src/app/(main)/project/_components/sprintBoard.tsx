@@ -11,11 +11,10 @@ import {
 } from "@hello-pangea/dnd";
 import statuses from "@/constants/status.json";
 import { Button } from "@/components/ui/button";
-import { LayoutList, Loader, PlusCircle } from "lucide-react";
+import { Loader, PlusCircle } from "lucide-react";
 import CreateIssueDrawer from "./createIssueDrawer";
 import { useFetch } from "@/hooks/useFetch";
 import { getIssuesBySprintId, updateIssueOrder } from "@/actions/issues";
-import SuspenseLoader from "@/components/custom/suspenseLoader";
 import IssueCard from "./issueCard";
 import { toast } from "sonner";
 import IssuesBoardFilters from "./issuesBoardFilters";

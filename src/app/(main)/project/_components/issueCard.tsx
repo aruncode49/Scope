@@ -50,7 +50,7 @@ const IssueCard = ({ issue, onDelete, onUpdate, showStatus }: IIssueCard) => {
     };
 
     const onUpdateHandler = (issue: IIssue) => {
-        router.refresh;
+        router.refresh();
         if (onUpdate) onUpdate(issue);
     };
 

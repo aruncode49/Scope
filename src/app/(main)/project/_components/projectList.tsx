@@ -1,7 +1,6 @@
 import { getProjects } from "@/actions/projects";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ExternalLink, Eye, MoveRight } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import DeleteProject from "./deleteProject";
 

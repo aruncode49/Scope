@@ -7,6 +7,7 @@ import { PrismaClient } from "@prisma/client";
  *  to connection issues.
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any, no-var */
 declare global {
     var prisma: PrismaClient | undefined;
 }
