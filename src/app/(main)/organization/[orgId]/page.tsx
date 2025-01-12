@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 type TParams = { orgId: string };
 
 const OrganizationPage = async ({ params }: { params: TParams }) => {
-    const { orgId } = await params;
+    const { orgId } = params;
     const { userId } = await auth();
 
     if (!userId) {
