@@ -1,15 +1,26 @@
 "use server";
 
+import { IIssue, TIssueStatus } from "@/lib/interfaces";
 import { db } from "@/lib/prisma";
+import { TIssueFormData } from "@/lib/zodSchema";
 import { auth } from "@clerk/nextjs/server";
 
-// need to change the type of data
-export const createIssue = async (projectId: string, data: any) => {
+interface ICreateIssueData extends TIssueFormData {
+    sprintId: string;
+    status: TIssueStatus;
+}
+
+export const createIssue = async (
+    projectId: string,
+    data: ICreateIssueData
+) => {
     const { userId, orgId } = await auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");
     }
+
+    let user = await db.user.findUnique({ where: { clerkUserId: userId } });
 
     const lastIssue = await db.issue.findFirst({
         where: { projectId: projectId, status: data.status },
@@ -26,7 +37,7 @@ export const createIssue = async (projectId: string, data: any) => {
             priority: data.priority,
             projectId: projectId,
             sprintId: data.sprintId,
-            reporterId: userId, // who is creating that issue
+            reporterId: user?.id ?? "", // who is creating that issue
             assigneeId: data.assigneeId || null,
             order: newOrder,
         },
@@ -37,4 +48,48 @@ export const createIssue = async (projectId: string, data: any) => {
     });
 
     return issue;
+};
+
+export const getIssuesBySprintId = async (sprintId: string) => {
+    const { userId, orgId } = await auth();
+
+    if (!userId || !orgId) {
+        throw new Error("Unauthorized");
+    }
+
+    const issues = await db.issue.findMany({
+        where: { sprintId },
+        orderBy: [{ status: "asc" }, { order: "asc" }],
+        include: {
+            assignee: true,
+            reporter: true,
+        },
+    });
+
+    return issues as IIssue[];
+};
+
+export const updateIssueOrder = async (updatedIssueList: IIssue[]) => {
+    const { userId, orgId } = await auth();
+
+    if (!userId || !orgId) {
+        throw new Error("Unauthorized");
+    }
+
+    // used transactions to handle multiple api call at a single time
+    // Transactions: Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
+    await db.$transaction(async (prisma) => {
+        // update each issue
+        for (const issue of updatedIssueList) {
+            await prisma.issue.update({
+                where: {
+                    id: issue.id,
+                },
+                data: {
+                    status: issue.status,
+                    order: issue.order,
+                },
+            });
+        }
+    });
 };

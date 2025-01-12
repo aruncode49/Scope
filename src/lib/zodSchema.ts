@@ -21,5 +21,13 @@ export const sprintSchema = z.object({
     endDate: z.date(),
 });
 
+export const issueSchema = z.object({
+    title: z.string().min(1, "Title is required"),
+    assigneeId: z.string().cuid("Please select assignee"),
+    description: z.string().optional(),
+    priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"]),
+});
+
 export type TProjectFormData = z.infer<typeof projectSchema>;
 export type TSprintFormData = z.infer<typeof sprintSchema>;
+export type TIssueFormData = z.infer<typeof issueSchema>;
