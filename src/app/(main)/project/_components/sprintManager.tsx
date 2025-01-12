@@ -83,12 +83,12 @@ const SprintManager = (props: ISprintManager) => {
 
     return (
         <div className="mt-8">
-            <div className="space-y-2">
+            <div className="space-y-1">
                 <label
                     htmlFor="manage-sprint"
                     className="text-sm font-medium text-neutral-700"
                 >
-                    <span>Manage Sprint</span>
+                    <span>Select Sprint</span>
                     {getStatusText() && (
                         <Badge variant="secondary" className="ml-2">
                             {getStatusText()}

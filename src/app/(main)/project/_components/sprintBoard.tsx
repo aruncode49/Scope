@@ -11,13 +11,14 @@ import {
 } from "@hello-pangea/dnd";
 import statuses from "@/constants/status.json";
 import { Button } from "@/components/ui/button";
-import { Loader, PlusCircle } from "lucide-react";
+import { LayoutList, Loader, PlusCircle } from "lucide-react";
 import CreateIssueDrawer from "./createIssueDrawer";
 import { useFetch } from "@/hooks/useFetch";
 import { getIssuesBySprintId, updateIssueOrder } from "@/actions/issues";
 import SuspenseLoader from "@/components/custom/suspenseLoader";
 import IssueCard from "./issueCard";
 import { toast } from "sonner";
+import IssuesBoardFilters from "./issuesBoardFilters";
 
 interface ISprintBoard {
     sprints: ISprint[];
@@ -50,9 +51,15 @@ const SprintBoard = ({ sprints, projectId, orgId }: ISprintBoard) => {
     const [selectedIssueStatus, setSelectedIssueStatus] =
         useState<TIssueStatus | null>(null);
 
-    // const [filteredIssues, setFilteredIssues] = useState(issues);
+    const [filteredIssues, setFilteredIssues] = useState<IIssue[]>(
+        issues || []
+    );
 
     // actions
+
+    const onFilterChange = (filteredIssues: IIssue[]) => {
+        setFilteredIssues(filteredIssues);
+    };
 
     const reorderIssueList = (
         list: IIssue[],
@@ -175,6 +182,21 @@ const SprintBoard = ({ sprints, projectId, orgId }: ISprintBoard) => {
                 projectId={projectId}
             />
 
+            <div className="mt-8">
+                <h1 className="text-2xl font-semibold text-neutral-900 flex items-center gap-2">
+                    <LayoutList />
+                    Manage Your Sprint
+                </h1>
+
+                {/* issues filters */}
+                {issues && issues.length > 0 && (
+                    <IssuesBoardFilters
+                        issues={issues}
+                        onFilterChange={onFilterChange}
+                    />
+                )}
+            </div>
+
             {/* kanban board */}
             <>
                 {issuesLoading ? (
@@ -204,7 +226,7 @@ const SprintBoard = ({ sprints, projectId, orgId }: ISprintBoard) => {
                                                     {col.name}
                                                 </h1>
 
-                                                {issues
+                                                {filteredIssues
                                                     ?.filter(
                                                         (issue) =>
                                                             issue.status ===
