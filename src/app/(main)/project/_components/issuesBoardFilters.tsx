@@ -149,11 +149,11 @@ const IssuesBoardFilters = ({
 
                 {isFiltersApplied && (
                     <Button
-                        variant="ghost"
+                        size="sm"
                         onClick={onClearFilters}
-                        className="flex items-center"
+                        className="flex items-center w-fit bg-red-100 text-red-500 border border-red-300 hover:bg-red-200"
                     >
-                        <X className="mr-2 h-4 w-4" /> Clear Filters
+                        <X className="size-4 -mr-1" /> Clear Filters
                     </Button>
                 )}
             </div>
