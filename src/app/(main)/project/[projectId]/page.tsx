@@ -22,7 +22,9 @@ const ProjectPage = async ({ params }: { params: TParams }) => {
                 projectTitle={project.name}
                 projectId={project.id}
                 projectKey={project.key}
-                sprintKey={project.sprints?.length + 1}
+                sprintKey={
+                    project.sprints?.length + Math.floor(Math.random() * 10000)
+                }
             />
 
             {/* sprint board */}
@@ -33,7 +35,10 @@ const ProjectPage = async ({ params }: { params: TParams }) => {
                     orgId={project.organizationId}
                 />
             ) : (
-                <div>Create Sprint</div>
+                <div className="text-sm text-neutral-700 text-center py-20">
+                    No sprint found! Please click on add sprint to create new
+                    sprint!
+                </div>
             )}
         </div>
     );

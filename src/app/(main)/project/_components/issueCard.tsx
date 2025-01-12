@@ -1,3 +1,5 @@
+"use client";
+
 import UserAvatar from "@/components/custom/userAvatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -15,8 +17,9 @@ import IssueDetailsDialog from "./issueDetailsDialog";
 
 interface IIssueCard {
     issue: IIssue;
-    onDelete: () => Promise<boolean>;
-    onUpdate: (update: IIssue) => void;
+    onDelete?: () => Promise<boolean>;
+    onUpdate?: (update: IIssue) => void;
+    showStatus?: boolean;
 }
 
 const priorityBorderColor = {
@@ -33,7 +36,7 @@ const priorityBgColor = {
     URGENT: "bg-red-600 hover:bg-red-600",
 };
 
-const IssueCard = ({ issue, onDelete, onUpdate }: IIssueCard) => {
+const IssueCard = ({ issue, onDelete, onUpdate, showStatus }: IIssueCard) => {
     // hooks
     const router = useRouter();
 
@@ -42,11 +45,13 @@ const IssueCard = ({ issue, onDelete, onUpdate }: IIssueCard) => {
 
     // actions
     const onDeleteHandler = async () => {
-        await onDelete();
+        router.refresh();
+        if (onDelete) await onDelete();
     };
 
     const onUpdateHandler = (issue: IIssue) => {
-        onUpdate(issue);
+        router.refresh;
+        if (onUpdate) onUpdate(issue);
     };
 
     // vars
@@ -57,7 +62,7 @@ const IssueCard = ({ issue, onDelete, onUpdate }: IIssueCard) => {
     return (
         <div className="mb-4">
             <Card
-                className="cursor-pointer hover:scale-105 transition border-none bg-primary rounded-lg "
+                className="cursor-pointer hover:scale-105 transition border-none bg-white rounded-lg "
                 onClick={() => setIsDialogOpen(true)}
             >
                 <CardHeader
@@ -74,6 +79,11 @@ const IssueCard = ({ issue, onDelete, onUpdate }: IIssueCard) => {
                     >
                         {issue.priority}
                     </Badge>
+                    {showStatus && (
+                        <Badge variant="secondary" className="-ml-1">
+                            {issue.status}
+                        </Badge>
+                    )}
                 </CardContent>
                 <CardFooter className="flex flex-col items-start space-y-3">
                     <UserAvatar user={issue.assignee} />
@@ -91,6 +101,7 @@ const IssueCard = ({ issue, onDelete, onUpdate }: IIssueCard) => {
                     onDelete={onDeleteHandler}
                     onUpdate={onUpdateHandler}
                     borderColor={priorityBorderColor[issue.priority]}
+                    isProjectPage={showStatus}
                 />
             )}
         </div>

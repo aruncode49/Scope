@@ -31,6 +31,7 @@ interface IIssueDetailsDialog {
     onDelete: () => Promise<void>;
     onUpdate: (issue: IIssue) => void;
     borderColor: string;
+    isProjectPage?: boolean;
 }
 
 const priorityOptions = ["LOW", "MEDIUM", "HIGH", "URGENT"];
@@ -41,6 +42,7 @@ const IssueDetailsDialog = ({
     onDelete,
     onUpdate,
     borderColor,
+    isProjectPage: _isProjectPage,
 }: IIssueDetailsDialog) => {
     // hooks
     const { loading: deleteIssueLoading, makeRequest: onDeleteIssue } =
@@ -117,7 +119,7 @@ const IssueDetailsDialog = ({
                         <DialogTitle className="text-xl">
                             {issue.title}
                         </DialogTitle>
-                        {isProjectPage && (
+                        {!isProjectPage && (
                             <Button
                                 variant="ghost"
                                 size="icon"
@@ -156,7 +158,10 @@ const IssueDetailsDialog = ({
                                 value={status}
                                 onValueChange={onIssueStatusChange}
                             >
-                                <SelectTrigger className="text-xs">
+                                <SelectTrigger
+                                    disabled={_isProjectPage}
+                                    className="text-xs"
+                                >
                                     <SelectValue placeholder="Status" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -188,6 +193,7 @@ const IssueDetailsDialog = ({
                                 disabled={!isAdmin}
                             >
                                 <SelectTrigger
+                                    disabled={_isProjectPage}
                                     className={`border ${borderColor} rounded text-xs`}
                                 >
                                     <SelectValue placeholder="Priority" />
@@ -223,7 +229,7 @@ const IssueDetailsDialog = ({
                         <Button onClick={onClose} variant="outline" size="sm">
                             Cancel
                         </Button>
-                        {isAdmin && (
+                        {isAdmin && !_isProjectPage && (
                             <Button
                                 onClick={_onDeleteIssue}
                                 disabled={deleteIssueLoading}

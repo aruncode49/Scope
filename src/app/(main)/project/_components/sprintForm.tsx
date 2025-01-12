@@ -52,7 +52,7 @@ const SprintForm = ({
     } = useForm<TSprintFormData>({
         resolver: zodResolver(sprintSchema),
         defaultValues: {
-            name: `${projectKey}-${sprintKey}`,
+            name: `${projectKey}${sprintKey}`,
             startDate: dateRange.from,
             endDate: dateRange.to,
         },

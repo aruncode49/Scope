@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { useFetch } from "@/hooks/useFetch";
 import { updateSprintStatus } from "@/actions/sprints";
 import { Loader2 } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface ISprintManager {
     activeSprint: ISprint;
@@ -31,6 +32,8 @@ const SprintManager = (props: ISprintManager) => {
     const { data, loading, makeRequest } = useFetch({
         cb: updateSprintStatus,
     });
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
     // state
     const [status, setStatus] = useState<TSprintStatus>(activeSprint.status);
@@ -52,6 +55,7 @@ const SprintManager = (props: ISprintManager) => {
         const selectedSprint = sprints.find((sprint) => sprint.id === id);
         onUpdateActiveSprint(selectedSprint as ISprint);
         setStatus(selectedSprint?.status!);
+        router.replace(`/project/${projectId}`);
     };
 
     const getStatusText = () => {
@@ -79,7 +83,18 @@ const SprintManager = (props: ISprintManager) => {
                 status: data.sprint.status,
             });
         }
-    }, [data]);
+    }, [data, loading]);
+
+    useEffect(() => {
+        const sprintId = searchParams.get("sprint");
+        if (sprintId && sprintId !== activeSprint.id) {
+            const selectedSprint = sprints.find((s) => s.id === sprintId);
+            if (selectedSprint) {
+                onUpdateActiveSprint(selectedSprint);
+                setStatus(selectedSprint.status);
+            }
+        }
+    }, [searchParams, sprints]);
 
     return (
         <div className="mt-8">

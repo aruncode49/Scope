@@ -13,6 +13,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { createProject } from "@/actions/projects";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 const CreateProject = () => {
     // hooks
@@ -126,7 +127,11 @@ const CreateProject = () => {
                     variant="amber"
                     className="text-white w-full"
                 >
-                    {loading ? "Creating..." : "Create Project"}
+                    {loading ? (
+                        <Loader2 className="animate-spin" />
+                    ) : (
+                        "Create Project"
+                    )}
                 </Button>
             </form>
         </div>
