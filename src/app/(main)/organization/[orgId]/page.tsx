@@ -8,8 +8,10 @@ import { redirect } from "next/navigation";
 
 type TParams = { orgId: string };
 
-const OrganizationPage = async ({ params }: { params: TParams }) => {
-    const { orgId } = params;
+const OrganizationPage = async ({ params }: { params: Promise<TParams> }) => {
+    const resolvedParams = await params;
+    const { orgId } = resolvedParams;
+
     const { userId } = await auth();
 
     if (!userId) {
