@@ -10,7 +10,7 @@ interface IProjectData {
 }
 
 export const createProject = async (data: IProjectData) => {
-    const { userId, orgId } = await auth();
+    const { userId, orgId } = auth();
 
     if (!userId) {
         throw new Error("Unauthorized");
@@ -57,7 +57,7 @@ export const createProject = async (data: IProjectData) => {
 };
 
 export const getProjects = async (orgId: string) => {
-    const { userId } = await auth();
+    const { userId } = auth();
 
     if (!userId) {
         throw new Error("Unauthorized");
@@ -86,7 +86,7 @@ export const getProjects = async (orgId: string) => {
 };
 
 export const deleteProject = async (projectId: string) => {
-    const { userId, orgId, orgRole } = await auth();
+    const { userId, orgId, orgRole } = auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");
@@ -118,7 +118,7 @@ export const deleteProject = async (projectId: string) => {
 };
 
 export const getProject = async (projectId: string) => {
-    const { userId, orgId } = await auth();
+    const { userId, orgId } = auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");

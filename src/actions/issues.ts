@@ -19,7 +19,7 @@ export const createIssue = async (
     projectId: string,
     data: ICreateIssueData
 ) => {
-    const { userId, orgId } = await auth();
+    const { userId, orgId } = auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");
@@ -56,7 +56,7 @@ export const createIssue = async (
 };
 
 export const getIssuesBySprintId = async (sprintId: string) => {
-    const { userId, orgId } = await auth();
+    const { userId, orgId } = auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");
@@ -75,7 +75,7 @@ export const getIssuesBySprintId = async (sprintId: string) => {
 };
 
 export const updateIssueOrder = async (updatedIssueList: IIssue[]) => {
-    const { userId, orgId } = await auth();
+    const { userId, orgId } = auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");
@@ -101,7 +101,7 @@ export const updateIssueOrder = async (updatedIssueList: IIssue[]) => {
 };
 
 export async function deleteIssue(issueId: string) {
-    const { userId, orgId } = await auth();
+    const { userId, orgId } = auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");
@@ -135,7 +135,7 @@ export async function deleteIssue(issueId: string) {
 }
 
 export async function updateIssue(issueId: string, data: IUpdateIssueData) {
-    const { userId, orgId } = await auth();
+    const { userId, orgId } = auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");
@@ -177,7 +177,7 @@ export async function updateIssue(issueId: string, data: IUpdateIssueData) {
 }
 
 export async function getUserIssues(userId: string) {
-    const { orgId } = await auth();
+    const { orgId } = auth();
 
     if (!userId || !orgId) {
         throw new Error("No user id or organization id found");

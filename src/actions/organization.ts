@@ -13,7 +13,7 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
  * @returns Organizations Data
  */
 export const getOrganization = async (slug: string) => {
-    const { userId } = await auth();
+    const { userId } = auth();
 
     if (!userId) {
         throw new Error("Unauthorized");
@@ -59,7 +59,7 @@ export const getOrganization = async (slug: string) => {
 };
 
 export const getOrganizationMembers = async (orgId: string) => {
-    const { userId } = await auth();
+    const { userId } = auth();
 
     if (!userId) {
         throw new Error("Unauthorized");

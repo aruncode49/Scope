@@ -6,8 +6,8 @@ import SprintBoard from "../_components/sprintBoard";
 
 type TParams = { projectId: string };
 
-const ProjectPage = async ({ params }: { params: Promise<TParams> }) => {
-    const { projectId } = await params;
+const ProjectPage = async ({ params }: { params: TParams }) => {
+    const { projectId } = params;
 
     const project = await getProject(projectId);
 

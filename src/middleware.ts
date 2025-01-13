@@ -9,25 +9,18 @@ const isProtectedRoutes = createRouteMatcher([
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-    const { userId, orgId } = await auth();
-
-    // If the user is not logged in and tries to access protected routes, redirect to the sign-in page
-    if (!userId && isProtectedRoutes(req)) {
-        await auth.protect();
+    if (!auth().userId && isProtectedRoutes(req)) {
+        return auth().redirectToSignIn();
     }
 
-    // If the user is logged in but does not have an organization, redirect to onboarding
     if (
-        userId &&
-        !orgId &&
+        auth().userId &&
+        !auth().orgId &&
         req.nextUrl.pathname !== "/onboarding" &&
         req.nextUrl.pathname !== "/"
     ) {
         return NextResponse.redirect(new URL("/onboarding", req.url));
     }
-
-    // Allow the request to proceed
-    return NextResponse.next();
 });
 
 export const config = {

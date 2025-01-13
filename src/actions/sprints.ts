@@ -9,7 +9,7 @@ export const createSprint = async (
     projectId: string,
     data: TSprintFormData
 ) => {
-    const { userId, orgId } = await auth();
+    const { userId, orgId } = auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");
@@ -42,7 +42,7 @@ export const updateSprintStatus = async (
     sprintId: string,
     status: TSprintStatus
 ) => {
-    const { userId, orgId, orgRole } = await auth();
+    const { userId, orgId, orgRole } = auth();
 
     if (!userId || !orgId) {
         throw new Error("Unauthorized");
